@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<script src="js/jquery-3.4.1.min.js"></script>
+	<body>
+		<div id="starLevel" data-num="0"><!-- 星星选中的数量 -->
+            <img src="img/yellowstartpriva.svg" style="width: 35px;height: 35px;" onclick="statBtn(this)" />
+            <img src="img/yellowstartpriva.svg" style="width: 35px;height: 35px;" onclick="statBtn(this)" />
+            <img src="img/yellowstartpriva.svg" style="width: 35px;height: 35px;" onclick="statBtn(this)" />
+            <img src="img/yellowstartpriva.svg" style="width: 35px;height: 35px;" onclick="statBtn(this)" />
+            <img src="img/yellowstartpriva.svg" style="width: 35px;height: 35px;" onclick="statBtn(this)" />
+        </div>                            
+	</body>
+	<script>
+		function hoverEnter() {
+			$(this).prop("src", "img/greenstartpriva.svg");
+			$(this).prevAll().prop("src", "img/greenstartpriva.svg");
+			$(this).nextAll().prop("src", "img/yellowstartpriva.svg")
+		}
+		function hoverLeave() {
+			$("#starLevel img").each(function (i, e) {
+				if ($(e).attr("isselect") == "1") {//当点击星星时 会给 选到的加一个自定义属性 isselect="1" elese isselect="0"
+					$(e).prop("src", "img/greenstartpriva.svg");
+				} else {
+					$(e).prop("src", "img/yellowstartpriva.svg");
+				}
+			});
+		}
+		$("#starLevel img")//绑定图片的hover事件
+			.on('mouseenter', hoverEnter)
+			.on('mouseleave', hoverLeave);
+		var statBtn = function (obj) {
+			$(obj).prop("src", "img/greenstartpriva.svg").attr("isselect", "1");
+			$(obj).prevAll().prop("src", "img/greenstartpriva.svg").attr("isselect", "1");
+			$(obj).nextAll().prop("src", "img/yellowstartpriva.svg").attr("isselect", "0");
+			var num = $("#starLevel img[isselect='1']").length;
+			$("#starLevel").data("num", num);
+		}
+	</script>
+</html>
